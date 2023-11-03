@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import ShoppingCart from "../pages/shopping-cart"
 
 export default function Logo() {
   const navigate = useNavigate()
@@ -26,8 +27,9 @@ export default function Logo() {
             </span>
           </h1>
         </div>
-        <div>
+        <div className="flex gap-5 justify-center items-center">
           <h1>Bem vindo(a), {name}</h1>
+          <ShoppingCart />
         </div>
       </div>
       <div className="w-full border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />

@@ -18,7 +18,7 @@ export function RoutesComponent() {
       {/* Rotas Restaurante */}
       <Route path='/restaurant' element={<Menu><Restaurant /></Menu>} />
       <Route path='/new-restaurant' element={<Menu><NewRestaurant /></Menu>} />
-      <Route path='/favorite-restaurant' element={<Menu><FavoriteRestaurant /></Menu>} />
+      <Route path='/favorites' element={<Menu><FavoriteRestaurant /></Menu>} />
       {/* Rotas Usuário */}
       <Route path='/perfil' element={<Menu><User /></Menu>} />
       <Route path='/signin' element={<NewUser />} />

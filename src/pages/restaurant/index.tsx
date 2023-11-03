@@ -4,9 +4,9 @@ import dayjs from "dayjs";
 import NewProducts from "./new-products";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { restaurantView } from "../../store/slices/restaurant";
-import { Pencil, X } from "lucide-react";
+import { X } from "lucide-react";
 import { toast } from 'react-toastify'
-
+import EditProducts from "./edit-products";
 
 export default function Restaurant() {
   const dispatch = useAppDispatch()
@@ -35,7 +35,7 @@ export default function Restaurant() {
           dispatch(restaurantView(response.data))
         })
         .catch((error) => {
-          console.error("Erro ao buscar dados dos restaurantes:", error);
+          console.error("Erro ao buscar dados dos restaurantes!", error);
         });
     }
   }, [dispatch, id, token]);
@@ -60,7 +60,7 @@ export default function Restaurant() {
   return (
     <div>
       <div className="flex justify-around items-center">
-        <img className="w-24 h-24 rounded-full" src={restaurant.logoUrl} alt={`Logo do ${restaurant.name}`} />
+        <img className="w-24 h-24" src={restaurant.logoUrl} alt={`Logo do ${restaurant.name}`} />
         <div>
           <h1 className="text-zinc-900 font-bold text-4xl ml-24">{restaurant.name}</h1>
         </div>
@@ -102,8 +102,8 @@ export default function Restaurant() {
                 <td className="border px-4 py-2">{product.quantity}</td>
                 <td className="border px-4 py-2">{product.price}</td>
                 <td className="border px-4 py-2 flex items-center justify-center gap-5">
-                  <Pencil className="w-4 h-4 cursor-pointer text-emerald-800 transition-colors hover:text-emerald-600" />
-                  <X  onClick={() => removeProduct(product.id)} className="w-4 h-4 text-red-400 cursor-pointer transition-colors hover:text-red-600" />
+                  <EditProducts productSelected={product}/>
+                  <X onClick={() => removeProduct(product.id)} className="w-4 h-4 text-red-400 cursor-pointer transition-colors hover:text-red-600" />
                 </td>
               </tr>
             ))}

@@ -59,7 +59,7 @@ export default function Menu ({ children }: MenuProps){
         )}
         <div className="w-52 border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />
         <div
-          onClick={() => navigate('/favorite-restaurant')} 
+          onClick={() => navigate('/favorites')} 
           className="flex p-5 justify-start gap-2 items-center cursor-pointer hover:bg-slate-100 hover:duration-200">
           <Crown size={24} />
           <p className="p-1">Favoritos</p>

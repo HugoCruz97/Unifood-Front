@@ -1,6 +1,4 @@
 export function Header() {
-
-
   return (
     <div className="flex">
       <div className="w-[764px] h-10 bg-red-600"></div>

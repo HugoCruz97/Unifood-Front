@@ -40,16 +40,6 @@ const restaurantSlice = createSlice({
   initialState,
   reducers: {
     restaurantView: (state, action: PayloadAction<Restaurant>) => {
-      // state.address = action.payload.address
-      // state.cep = action.payload.cep
-      // state.contact_number = action.payload.contact_number
-      // state.createdAt = action.payload.createdAt
-      // state.description = action.payload.description
-      // state.id = action.payload.id
-      // state.logoUrl = action.payload.logoUrl
-      // state.name = action.payload.name
-      // state.user_id = action.payload.user_id
-      // state.products = action.payload.products
       Object.assign(state, action.payload)
     }
   }
