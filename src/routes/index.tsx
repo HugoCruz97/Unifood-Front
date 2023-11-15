@@ -8,6 +8,7 @@ import User from '../pages/user'
 import ListRestaurants from '../pages/restaurant/list-restaurants'
 import FavoriteRestaurant from '../pages/restaurant/favorite-restaurant'
 import Orders from '../pages/orders'
+import UserOrders from '../pages/orders/user-orders'
 
 export function RoutesComponent() {
   return (
@@ -25,6 +26,7 @@ export function RoutesComponent() {
       <Route path='/signin' element={<NewUser />} />
       {/* Rotas Pedidos */}
       <Route path='/orders' element={<Menu><Orders /></Menu>} />
+      <Route path='/user-orders' element={<Menu><UserOrders /></Menu>} />
     </Routes>
   )
 }

@@ -20,7 +20,12 @@ export default function Cart() {
 
 
   const increaseQtd = () => {
-    setQtd(qtd + 1)
+    items.map((item) => {
+      const { quantity } = item
+      if (qtd != quantity) {
+        setQtd(qtd + 1)
+      }
+    })
   };
 
   const decreaseQtd = () => {
@@ -38,11 +43,10 @@ export default function Cart() {
   const handleBuyItems = () => {
 
     items.map((item) => {
-      const { id, name, restaurant_id, price } = item
+      const { name, restaurant_id, price } = item
       const priceTotal = price * qtd
       return (
         api.post('/order', {
-          id,
           name,
           restaurant_id,
           user_id,

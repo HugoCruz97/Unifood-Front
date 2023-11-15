@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { api } from "../../lib"
+import { api } from "../../../lib/index"
 import dayjs from "dayjs";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { restaurantView } from "../../store/slices/restaurant";
+import { useAppDispatch } from "../../../store/index";
+import { restaurantView } from "../../../store/slices/restaurant";
 
-interface UserType {
+interface RestaurantType {
   name: string,
 }
 
@@ -16,10 +16,10 @@ interface OrderType {
   quantity: number,
   price: number,
   status: string,
-  user: UserType
+  restaurant: RestaurantType
 }
 
-export default function Orders() {
+export default function UserOrders() {
 
   const [orders, setOrders] = useState<OrderType[]>([])
   const dispatch = useAppDispatch()
@@ -32,10 +32,6 @@ export default function Orders() {
     const userData = JSON.parse(userLogged);
     user_id = userData.user.id;
   }
-  
-  const { id, name } = useAppSelector(state => {
-    return state.restaurant
-  })
 
   useEffect(() => {
     if (user_id) {
@@ -51,26 +47,26 @@ export default function Orders() {
           console.error("Erro ao buscar dados dos restaurantes!", error);
         });
     }
-  }, [dispatch, id, token]);
+  }, [dispatch, user_id, token]);
 
   useEffect(() => {
-    api.get(`/orders/${id}`, {
+    api.get(`/user-orders/${user_id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     }).then((response) => {
       setOrders(response.data)
     })
-  },[id, token])
+  },[user_id, token])
 
   return (
     <div className="flex flex-col gap-10 justify-center">
-      <p className="font-bold text-zinc-900 text-3xl leading-relaxed">Pedidos feitos no seu {name}!</p>
+      <p className="font-bold text-zinc-900 text-3xl leading-relaxed">Pedidos feitos por você!</p>
       <div className="w-full">
         <table className="min-w-full table-auto">
           <thead>
             <tr>
-              <th className="px-4 py-2">Cliente</th>
+              <th className="px-4 py-2">Restaurante</th>
               <th className="px-4 py-2">Produto</th>
               <th className="px-4 py-2">Quantidade</th>
               <th className="px-4 py-2">Preço</th>
@@ -82,7 +78,7 @@ export default function Orders() {
           <tbody>
             {orders && orders.map((order:OrderType) => (
               <tr key={order.id}>
-                <td className="border px-4 py-2 text-center">{order.user.name}</td>
+                <td className="border px-4 py-2 text-center">{order.restaurant.name}</td>
                 <td className="border px-4 py-2 text-center">{order.product_name}</td>
                 <td className="border px-4 py-2 text-center">{order.quantity}</td>
                 <td className="border px-4 py-2 text-center">

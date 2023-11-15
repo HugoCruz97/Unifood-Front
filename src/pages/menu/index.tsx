@@ -63,7 +63,15 @@ export default function Menu ({ children }: MenuProps){
           className="flex p-5 justify-start gap-2 items-center cursor-pointer hover:bg-slate-100 hover:duration-200"
         >
           <BadgeDollarSign size={24} />
-          <p className="p-1">Pedidos</p>
+          <p className="p-1 text-sm">Pedidos Restaurante</p>
+        </div>
+        <div className="w-52 border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />
+        <div
+          onClick={() => navigate('/user-orders')} 
+          className="flex p-5 justify-start gap-2 items-center cursor-pointer hover:bg-slate-100 hover:duration-200"
+        >
+          <BadgeDollarSign size={24} />
+          <p className="p-1">Pedidos Usuário</p>
         </div>
         <div className="w-52 border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />
         <div
@@ -74,7 +82,7 @@ export default function Menu ({ children }: MenuProps){
           <p className="p-1">Sair</p>
         </div>
       </nav>
-      <main className="ml-72 -mt-[281px]">{children}</main>
+      <main className="ml-72 -mt-[350px]">{children}</main>
     </div>
   )
 }
