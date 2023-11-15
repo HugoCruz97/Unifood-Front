@@ -50,7 +50,7 @@ export default function User() {
 
   return (
     <div>
-      <form className="flex gap-10">
+      <form className="flex gap-10" onSubmit={updateUser}>
         <div className="flex items-center gap-2 mt-6">
           <label>Nome:</label>
           <input 
@@ -85,7 +85,7 @@ export default function User() {
           <button 
             className="w-24 h-12 bg-red-600 rounded-2xl text-white my-11 font-semibold text-sm uppercase transition-colors hover:bg-red-500"
             hidden={edit}
-            onClick={updateUser}
+            type="submit"
           >
             Salvar
           </button>
