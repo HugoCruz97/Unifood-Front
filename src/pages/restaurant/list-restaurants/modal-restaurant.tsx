@@ -1,8 +1,25 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Eye, X } from 'lucide-react'
 import dayjs from 'dayjs'
+import { useCart } from '../../../contexts/cartContext'
+import { toast } from 'react-toastify'
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  description: string;
+  restaurant_id: string
+}
 
 export default function ModalRestaurant({restaurantSelected}) {
+  const { items, setItems } = useCart()
+
+  const handleAddToCart = (item: Product) => {
+    setItems([...items, item])
+    console.log(items)
+  }
 
   const dateFormat = dayjs(restaurantSelected.createdAt).format('DD/MM/YYYY')
 
@@ -16,7 +33,7 @@ export default function ModalRestaurant({restaurantSelected}) {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className='bg-black/70 fixed inset-0' />
-        <Dialog.Content className='fixed top-[50%] left-[50%] max-h-[600px] w-[90vw] max-w-[1100px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] overflow-y-auto scrollbar-none scrollbar-track-zinc-100 scrollbar-thumb-zinc-500 focus:outline-none'>
+        <Dialog.Content className='fixed top-[50%] left-[50%] max-h-[600px] w-[90vw] max-w-[1100px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] overflow-y-auto scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-500 focus:outline-none'>
           <div>
             <div className="flex justify-around items-center">
               <img className="w-24 h-24" src={restaurantSelected.logoUrl} alt={`Logo do ${restaurantSelected.name}`} />
@@ -45,23 +62,44 @@ export default function ModalRestaurant({restaurantSelected}) {
                 <table className="min-w-full table-auto">
                   <thead>
                     <tr>
-                      <th className="px-4 py-2" />
                       <th className="px-4 py-2">Nome</th>
                       <th className="px-4 py-2">Descrição</th>
                       <th className="px-4 py-2">Quantidade</th>
-                      <th className="px-4 py-2">Valor Unitário</th>
+                      <th className="px-4 py-2">Preço</th>
+                      <th className="px-4 py-2"></th>
+                      {/* <th className="px-4 py-2">Salvar no carrinho</th> */}
                     </tr>
                   </thead>
                   <tbody>
-                    {restaurantSelected.Products && restaurantSelected.Products.map((product) => (
+                    {restaurantSelected.Products && restaurantSelected.Products.map((product:Product) => (
                       <tr key={product.id}>
-                        <td className="border px-4 py-2">
-                          <input type="checkbox" onClick={() => {console.log(product)}} />
-                        </td>
                         <td className="border px-4 py-2">{product.name}</td>
                         <td className="border px-4 py-2">{product.description}</td>
-                        <td className="border px-4 py-2">{product.quantity}</td>
-                        <td className="border px-4 py-2">{product.price}</td>
+                        <td className="border px-4 py-2 text-center">
+                          {product.quantity}
+                        </td>
+                        <td className="border px-4 py-2 text-center">
+                          {(product.price).toLocaleString('pt-BR', {
+                            style:"currency",
+                            currency:"BRL"
+                          })}
+                        </td>
+                        <td className="border px-4 py-2 text-center">
+                          <button 
+                            onClick={() => {
+                              Promise.all([handleAddToCart(product)]).then(() => {
+                                toast.success('Produto adicionado ao carrinho!', {
+                                  position: 'top-right',
+                                  autoClose: 1000,
+                                  theme: 'light',
+                                })
+                              })
+                            }} 
+                            className='bg-emerald-500 text-white text-xs font-semibold p-2 rounded-xl'
+                          >
+                            Adicionar ao Carrinho
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

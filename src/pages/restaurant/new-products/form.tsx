@@ -14,11 +14,10 @@ export default function FormNewProducts() {
     
     if (restaurant_id) {
         const formData = new FormData(event.currentTarget)
-        
         await api.post('/products', {
           name: formData.get('name') ,
-          price: formData.get('price') ,
-          quantity: formData.get('quantity'),
+          price: Number(formData.get('price')) ,
+          quantity: Number(formData.get('quantity')),
           description: formData.get('description') ,
           restaurant_id
         },
@@ -63,7 +62,7 @@ export default function FormNewProducts() {
         <input
           className='focus:inline-flex h-[35px] w-[100px] items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]'
           id="price"
-          type='string'
+          type='number'
           name='price'
           placeholder="R$ 0,00"
         />
@@ -76,6 +75,7 @@ export default function FormNewProducts() {
           className='focus:inline-flex h-[35px] w-[100px] items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]'
           id="quantity"
           name='quantity'
+          type='number'
         />
       </fieldset>
       <fieldset className='mb-[15px] flex items-center gap-5'>

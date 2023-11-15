@@ -97,10 +97,15 @@ export default function Restaurant() {
           <tbody>
             {restaurant.Products && restaurant.Products.map((product) => (
               <tr key={product.id}>
-                <td className="border px-4 py-2">{product.name}</td>
-                <td className="border px-4 py-2">{product.description}</td>
-                <td className="border px-4 py-2">{product.quantity}</td>
-                <td className="border px-4 py-2">{product.price}</td>
+                <td className="border px-4 py-2 text-center">{product.name}</td>
+                <td className="border px-4 py-2 text-center">{product.description}</td>
+                <td className="border px-4 py-2 text-center">{product.quantity}</td>
+                <td className="border px-4 py-2 text-center">
+                  {(product.price).toLocaleString('pt-BR', {
+                    style:"currency",
+                    currency:"BRL"
+                  })}
+                </td>
                 <td className="border px-4 py-2 flex items-center justify-center gap-5">
                   <EditProducts productSelected={product}/>
                   <X onClick={() => removeProduct(product.id)} className="w-4 h-4 text-red-400 cursor-pointer transition-colors hover:text-red-600" />

@@ -1,27 +1,11 @@
-import { useState } from "react"
-import { useForm, SubmitHandler } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as zod from 'zod'
+import { FormEvent, useState } from "react"
 import { toast } from 'react-toastify'
 import { api } from "../../lib"
-
-const updateSchema = zod.object({
-  email: zod.string(),
-  password: zod.string(),
-  name: zod.string()
-})
-
-type FormData = zod.infer<typeof updateSchema>;
-
 
 export default function User() {
   const [edit, setEdit] = useState(true)
 
   const token = localStorage.getItem('token')
-
-  const { register, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(updateSchema)
-  })
 
   let name = ''
   let email = ''
@@ -43,16 +27,18 @@ export default function User() {
     }
   }
 
-  const updateUser:SubmitHandler<FormData> = ({ email, name }) => {
-     api.put(`user/${id}`, {
-      email,
-      name
+  async function updateUser(event:FormEvent<HTMLFormElement>) {
+    const formData = new FormData(event.currentTarget)
+     await api.put(`user/${id}`, {
+      name: formData.get('name'),
+      email: formData.get('email'),
     }, config).then(() => {
-      toast.success('Usuário criado com sucesso!', {
+      toast.success('Usuário editado com sucesso!', {
         position: 'top-right',
         autoClose: 5000,
         theme: 'light'
       })
+      setTimeout(() => window.location.reload(),1000)
     }).catch(() => {
       toast.error('Erro ao criar usuário', {
         position: 'top-right',
@@ -64,25 +50,25 @@ export default function User() {
 
   return (
     <div>
-      <form className="flex gap-10" onSubmit={handleSubmit(updateUser)}>
+      <form className="flex gap-10">
         <div className="flex items-center gap-2 mt-6">
           <label>Nome:</label>
           <input 
-            className="h-10 w-80 border-2 border-zinc-900 border-opacity-50 outline-none p-2" 
+            className="h-10 w-80 border-2 border-zinc-900 border-opacity-50 outline-none p-2 disabled:bg-zinc-200" 
             type="text" 
+            name="name"
             defaultValue={name} 
-            readOnly={edit}
-            {...register('name')} 
+            disabled={edit}
           />
         </div>
         <div className="flex gap-2 mt-6 items-center">
           <label>E-mail:</label>
           <input 
-            className="h-10 w-80 border-2 border-zinc-900 border-opacity-50 outline-none p-2" 
+            className="h-10 w-80 border-2 border-zinc-900 border-opacity-50 outline-none p-2 disabled:bg-zinc-200" 
             type="text" 
+            name="email"
             defaultValue={email} 
-            readOnly={edit}
-            {...register('email')} 
+            disabled={edit}
           />
         </div>
       </form>
@@ -99,7 +85,7 @@ export default function User() {
           <button 
             className="w-24 h-12 bg-red-600 rounded-2xl text-white my-11 font-semibold text-sm uppercase transition-colors hover:bg-red-500"
             hidden={edit}
-            type="submit" 
+            onClick={updateUser}
           >
             Salvar
           </button>

@@ -1,6 +1,5 @@
 import { api } from "../../../lib";
 import { FormEvent, useEffect, useState } from 'react'
-import { Heart } from "lucide-react";
 import dayjs from "dayjs";
 import ModalRestaurant from "./modal-restaurant";
 
@@ -84,7 +83,6 @@ export default function ListRestaurants() {
               </div>
               <div className="mt-4 flex gap-3">
                 <ModalRestaurant restaurantSelected={restaurant} />
-                <Heart className="w-8 h-8 text-red-700 cursor-pointer transition-colors hover:text-red-500" />
               </div>
             </div>
             <div className="ml-3 w-full border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />

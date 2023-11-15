@@ -1,29 +1,36 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface Products {
+interface Product {
+  id: string,
   name: string,
   price: string,
-  quantity: string
+  quantity: string,
+  description: string
 }
 
 interface List {
-  listProducts: Products[]
+  items: Product[]
 }
 
 const initialState: List = {
-  listProducts: []
+  items: []
 }
 
 const shoppingCartSlice = createSlice({
   name: 'shoppingCart',
   initialState,
   reducers: {
-    order: (state, action: PayloadAction<List>) => {
-      Object.assign(state, action.payload)
+    order: (state, action: PayloadAction<Product>) => {
+      const { id, name, price, quantity, description } = action.payload;
+      state.items.push({ ...state.items,id, name, price, quantity, description })
+    },
+    remove: (state, action: PayloadAction<string>) => {
+      const productIdToRemove = action.payload;
+      state.items = state.items.filter(product => product.id !== productIdToRemove);
     }
   }
 })
 
 export const shoppingCart = shoppingCartSlice.reducer
 
-export const { order } = shoppingCartSlice.actions
+export const { order, remove } = shoppingCartSlice.actions

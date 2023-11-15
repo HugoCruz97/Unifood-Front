@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import ShoppingCart from "../pages/shopping-cart"
+import { useCart } from "../contexts/cartContext"
 
 export default function Logo() {
   const navigate = useNavigate()
+
+  const { items } = useCart()
 
   let name = ''
 
@@ -30,6 +33,7 @@ export default function Logo() {
         <div className="flex gap-5 justify-center items-center">
           <h1>Bem vindo(a), {name}</h1>
           <ShoppingCart />
+          <span className="text-sm">{items.length}</span>
         </div>
       </div>
       <div className="w-full border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />

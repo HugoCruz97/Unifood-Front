@@ -7,6 +7,7 @@ import NewRestaurant from '../pages/restaurant/new-restaurant'
 import User from '../pages/user'
 import ListRestaurants from '../pages/restaurant/list-restaurants'
 import FavoriteRestaurant from '../pages/restaurant/favorite-restaurant'
+import Orders from '../pages/orders'
 
 export function RoutesComponent() {
   return (
@@ -22,6 +23,8 @@ export function RoutesComponent() {
       {/* Rotas Usuário */}
       <Route path='/perfil' element={<Menu><User /></Menu>} />
       <Route path='/signin' element={<NewUser />} />
+      {/* Rotas Pedidos */}
+      <Route path='/orders' element={<Menu><Orders /></Menu>} />
     </Routes>
   )
 }

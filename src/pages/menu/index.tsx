@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { UserCog, Crown, LogOut, UtensilsCrossed, BadgeDollarSign } from 'lucide-react'
+import { UserCog, LogOut, UtensilsCrossed, BadgeDollarSign } from 'lucide-react'
 import { ReactNode } from "react"
 import Logo from "../../components/logo"
 
@@ -59,13 +59,9 @@ export default function Menu ({ children }: MenuProps){
         )}
         <div className="w-52 border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />
         <div
-          onClick={() => navigate('/favorites')} 
-          className="flex p-5 justify-start gap-2 items-center cursor-pointer hover:bg-slate-100 hover:duration-200">
-          <Crown size={24} />
-          <p className="p-1">Favoritos</p>
-        </div>
-        <div className="w-52 border-2 border-rose-900 border-opacity-50 outline-none border-x-0 border-t-0" />
-        <div className="flex p-5 justify-start gap-2 items-center cursor-pointer hover:bg-slate-100 hover:duration-200">
+          onClick={() => navigate('/orders')} 
+          className="flex p-5 justify-start gap-2 items-center cursor-pointer hover:bg-slate-100 hover:duration-200"
+        >
           <BadgeDollarSign size={24} />
           <p className="p-1">Pedidos</p>
         </div>
@@ -78,7 +74,7 @@ export default function Menu ({ children }: MenuProps){
           <p className="p-1">Sair</p>
         </div>
       </nav>
-      <main className="ml-72 -mt-[350px]">{children}</main>
+      <main className="ml-72 -mt-[281px]">{children}</main>
     </div>
   )
 }

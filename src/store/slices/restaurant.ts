@@ -3,8 +3,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface Products {
   id: string
   name: string,
-  price: string,
-  quantity: string,
+  price: number,
+  quantity: number,
   description: string,
   restaurant_id: string
 }
@@ -12,7 +12,7 @@ interface Products {
 interface Restaurant {
   id: string,
   name: string,
-  createdAt: Date,
+  createdAt: string,
   logoUrl: string,
   address: string,
   cep: string,
@@ -25,7 +25,7 @@ interface Restaurant {
 const initialState: Restaurant = {
   id: '',
   name: '',
-  createdAt: new Date(),
+  createdAt: '',
   logoUrl: '',
   address: '',
   cep: '',
