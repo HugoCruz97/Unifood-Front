@@ -63,6 +63,7 @@ export default function Cart() {
             theme: 'light',
           })
           setTimeout(() => window.location.reload(),1000)
+          setItems([])
         }).catch(() => {
           toast.error('Erro ao finalizar compra!', {
             position: 'top-right',

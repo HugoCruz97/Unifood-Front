@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { UserCog, LogOut, UtensilsCrossed, BadgeDollarSign } from 'lucide-react'
 import { ReactNode } from "react"
 import Logo from "../../components/logo"
+import { useCart } from "../../contexts/cartContext"
 
 interface MenuProps {
   children?: ReactNode
@@ -9,6 +10,8 @@ interface MenuProps {
 
 export default function Menu ({ children }: MenuProps){
   const navigate = useNavigate()
+
+  const { setItems } = useCart()
 
   let hasRestaurant = false
 
@@ -23,6 +26,7 @@ export default function Menu ({ children }: MenuProps){
   const logOut = () => {
     localStorage.removeItem('user')
     localStorage.removeItem('token')
+    setItems([])
     navigate('/')
   }
 
